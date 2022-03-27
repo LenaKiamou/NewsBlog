@@ -114,11 +114,13 @@ def news_view(request):
 def article_view(request, title):
     article = Article.objects.get(title=title)
     is_mine = False
+
     #Allow the authenticated user to view the whole published article
+    if request.user == article.author.name:
+                is_mine = True
+
     if article.published == True:
         if request.user.is_authenticated:
-            if request.user == article.author.name:
-                is_mine = True
 
             context = { 'article': article,
                         'is_mine': is_mine
@@ -132,7 +134,8 @@ def article_view(request, title):
     else:
         #Allow only staff users to view an unpublished article
         if request.user.is_staff:
-            context = { 'article': article }
+            context = { 'article': article,
+            'is_mine': is_mine }
             return render(request, "news/article.html", context)
         else:
             #If the article is not published, display an error message and redirect to home page
@@ -149,6 +152,9 @@ def profile_view(request, username):
     if request.user.is_authenticated:
         author = Author.objects.get(name=profile_user)
         article = Article.objects.filter(author=author, published=True)
+
+        #Get upublished articles
+        unpublishedArticles = Article.objects.filter(author=author, published=False)
         #Get the number of articles
         articlesNum = len(article)
 
@@ -159,7 +165,8 @@ def profile_view(request, username):
         context = { 'articles': articles,
                     'articlesNum': articlesNum,
                     'profile_user': profile_user,
-                    'current_user': request.user
+                    'current_user': request.user,
+                    'unpublishedArticles': unpublishedArticles
                     }
         return render(request, "news/profile.html", context)
 

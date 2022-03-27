@@ -21,13 +21,12 @@
         </div>
         {% empty %}
         <div class="container justify-content-center">
-            <h1 class="text-center mt-5" style="padding: 10vh 0px 20vh 0px;color: rgb(206, 47, 47);"><b>No current articles</b></h1>
+            <h1 class="text-center mt-5" style="padding: 10vh 0px 20vh 0px;color: rgb(206, 47, 47);text-shadow: 3px 3px rgb(255, 255, 255);"><b>No current articles</b></h1>
         </div>
-        
         {% endfor %}
     </div>
 </div>
-{% if articleNum > 15 %}
+{% if articlesNum > 15 %}
 {% include "news/pagination.html" %}
 {% endif %}
 
