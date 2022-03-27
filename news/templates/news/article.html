@@ -1,0 +1,52 @@
+{% extends "news/layout.html" %}
+{% load static %}
+
+{% block body %}
+<div class="container article-container">
+    
+    <div class="row my-5 align-items-center justify-content-center">
+        <div class="col-8">
+            <h2 class="text-center mb-5 mt-4">{{ article.title }}</h2>
+            {% if request.user.is_staff %}
+            {% for group in user.groups.all %}
+                {% if group.name == 'editors' %}
+                    <div class="container">
+                        {% if not article.published %}
+                        <button class="btn btn-secondary" style="float:right;" id='edit-button{{ article.id }}' onclick="edit('{{ article.id }}')">Edit</button>
+                        {% else %}
+                        <button class="btn btn-danger" style="float:right;" id='delete-button{{ article.id }}'><a href="{% url 'delete' article.id %}" style="text-decoration:none;color:white;">Delete</a></button>
+                        {% endif %}
+                    </div>
+                {% endif %}
+                {% if group.name == 'authors' and is_mine %}
+                    {% if not article.published %}
+                        <div class="container">
+                            <button class="btn btn-secondary" style="float:right;" id='edit-button{{ article.id }}' onclick="edit('{{ article.id }}')">Edit</button>
+                        </div>
+                    {% else %}
+                        <h5 class="text-end" style="color:red;">Approved!</h5>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+            {% endif %}
+            <p class="text-muted mb-4"><small><i>{{ article.created }}</i></small></p>
+            <p class="text-center" id="article-content{{ article.id }}">{{ article.content }}</p>
+            <div id="edit-view{{ article.id }}" style="display:none;">
+                <textarea class="form-control z-depth-1" id="edit-text{{ article.id }}" rows="15">{{ article.content }}</textarea>
+                <button class="btn btn-success btn-lg mt-4" id="save-button{{ article.id }}">Save</button>
+                <button class="btn btn-danger btn-lg mt-4" id="cancel-button{{ article.id }}" type="button">Cancel</button>
+            </div>
+            <p class="text-end mt-5"><small>Created by <i>{{ article.author.name }}</i></small></p>
+            {% for group in user.groups.all %}
+                {% if group.name == 'editors' %}
+                    {% if not article.published %}
+                        <div class="text-center" id='publish-button{{ article.id }}'>
+                            <button class="btn btn-success mb-4"><a href="{% url 'publish' article.id %}" style="text-decoration:none;color:white;">Publish</a></button>
+                        </div>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

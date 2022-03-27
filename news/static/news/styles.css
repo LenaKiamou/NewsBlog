@@ -1,0 +1,141 @@
+.main-page {
+    background-image: url('../images/newsbg1.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+}
+
+#categories_div {
+    width: 100%;
+    height: 10%;
+    background-color: rgba(51, 51, 51, 0.637);
+    padding-top: 1%;
+    padding-bottom: 1%;
+    word-spacing: 20px;
+}
+
+#categories_div a{
+    text-decoration: none;
+    color: white;
+}
+
+
+.footer {
+    display: flex;
+    flex-flow: row wrap;
+    padding: 50px;
+    color: #fff;
+    background-color: rgb(61, 61, 61);
+}
+
+.footer > * {
+    flex:  1 100%;
+}
+
+.footer-left {
+    margin-right: 1.25em;
+    margin-bottom: 2em;
+}
+
+.footer ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.footer li {
+    line-height: 2em;
+}
+
+.footer a {
+    text-decoration: none;
+}
+
+.footer-right {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.footer-right > * {
+    flex: 1 50%;
+    margin-right: 1.25em;
+}
+
+.footer-right h2 {
+    color: white;
+}
+
+.box {
+    padding-bottom: 20px;
+}
+
+.box a, li {
+    color: #999;
+}
+
+.footer-bottom {
+    text-align: center;
+    color: #999;
+    padding-top: 20px;
+}
+
+.footer-left p {
+    padding-right: 20%;
+    color: #999;
+}   
+
+.socials a{
+    background-color: black;
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.socials a i {
+    color: #e7f2d4;
+    padding: 10px 12px;
+    font-size: 20px;
+}
+
+@media screen and (min-width: 600px) {
+    .footer-right > * {
+    flex: 1;
+    }
+
+    .footer-left {
+    flex: 1 0px;
+    }
+
+    .footer-right {
+    flex: 2 0px;
+    }
+}
+
+.article {
+    width: 100%;
+    overflow: hidden;
+}
+
+.content {
+    display: -webkit-box;
+    -webkit-line-clamp: 8;
+    -webkit-box-orient: vertical;  
+}
+
+.article-container {
+    background-color: rgba(211, 210, 210, 0.918);
+    width: 75%;
+    border-radius: 5px;
+}
+
+.log-reg-div {
+    color:white;
+    font-size:20px;
+    font-weight: bold;
+}
+
+.log-reg-div a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}

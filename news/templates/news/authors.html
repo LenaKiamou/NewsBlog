@@ -1,0 +1,40 @@
+{% extends "news/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+<div class="container my-5">
+    <h1 class="text-center mt-3 mb-5"><i><span class="px-3" style="background-color: rgba(168, 52, 52, 0.534);border-radius: 15px;">~ Our Authors ~</span></i></h1>
+    {% for author in authors %}
+    <div class="card mb-3">
+        <div class="row g-0 border border-secondary rounded border-3 bg-light" style="min-height: 250px;">
+            <div class="col-md-2">
+                <img src="{{author.image}}" class="img-fluid rounded" alt="no photo">
+            </div>
+            <div class="col-md-10">
+                <div class="card-body">
+                    <h5 class="card-title"><a href="{% url 'profile' author.name %}" style="text-decoration:none;color:black;">{{ author.name }}</a></h5>
+                    <p class="card-text">{{ author.note }}</p>
+                    <div class="text-end">
+                        {% if user.is_authenticated and not user.is_staff %}
+                            {% if author not in reader.following.all %}
+                            <form action ="{% url 'follow' author.name %}" method="post">
+                                {% csrf_token %}
+                                <button id="follow-button" class="btn btn-outline-secondary mt-5" type="submit" name="add">Follow</button>
+                            </form>
+                            {% else %}
+                            <form action ="{% url 'follow' author.name %}" method="post">
+                                {% csrf_token %}
+                                <button id="follow-button" class="btn btn-secondary mt-5" type="submit" name="remove">Following</button>
+                            </form>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>  
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
